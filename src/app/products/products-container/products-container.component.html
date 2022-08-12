@@ -1,3 +1,5 @@
 <div class="container">
-    <p class="mt-5 tag">Smart Hardware Shop</p>
+  <div *ngFor="let product of products">
+    <p>{{product.name}}</p>
+  </div>
 </div>

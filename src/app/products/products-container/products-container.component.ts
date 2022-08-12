@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-products-container',
@@ -7,6 +8,7 @@ import { ProductService } from '../product.service';
   styleUrls: ['./products-container.component.css']
 })
 export class ProductsContainerComponent implements OnInit {
+  products: any;
 
   constructor(
     private productService: ProductService
@@ -17,9 +19,10 @@ export class ProductsContainerComponent implements OnInit {
   }
 
   getproducts(): void {
-    this.productService.getProducts().subscribe(
-      (product => {
-        console.log(product);
+    this.productService.getProducts(12).subscribe(
+      (products => {
+        this.products = products;
+        console.log(this.products);
       })
     )
   }
