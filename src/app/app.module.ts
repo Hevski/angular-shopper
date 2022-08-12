@@ -10,6 +10,7 @@ import { ProductsContainerComponent } from './products/products-container/produc
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './modal/modal.component';
 import { ViewProductModalComponent } from './products/view-product-modal/view-product-modal.component';
+import { BasketComponent } from './basket/basket.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ViewProductModalComponent } from './products/view-product-modal/view-pr
     NavBarComponent,
     ProductsContainerComponent,
     ModalComponent,
-    ViewProductModalComponent
+    ViewProductModalComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,
