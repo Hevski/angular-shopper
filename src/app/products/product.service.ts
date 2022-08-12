@@ -28,6 +28,10 @@ export class ProductService {
      )
   }
 
+  /**
+   * Get product by id
+   * @param productId 
+   */
   getProductById(productId: number): Observable<any> {
     return this.http.get(`${API_URL}/products/${productId}`)
     .pipe(map(product => {
