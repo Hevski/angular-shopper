@@ -27,4 +27,9 @@ export class ProductsContainerComponent implements OnInit {
     )
   }
 
+  openProductModal(item: any): void {
+   console.log(item);
+   
+  }
+
 }
