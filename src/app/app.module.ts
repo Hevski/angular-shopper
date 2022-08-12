@@ -5,10 +5,11 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductsContainerComponent } from './products/products-container/products-container.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './modal/modal.component';
+import { ViewProductModalComponent } from './products/view-product-modal/view-product-modal.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ModalComponent } from './modal/modal.component';
     HomeComponent,
     NavBarComponent,
     ProductsContainerComponent,
-    ModalComponent
+    ModalComponent,
+    ViewProductModalComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,7 @@ import { ModalComponent } from './modal/modal.component';
     NgbModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

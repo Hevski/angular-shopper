@@ -1,1 +1,19 @@
-<p>modal works!</p>
+<div class="modal-header">
+    <h1 class="modal-title">{{title}}</h1>
+</div>
+<ng-content select="[header]"></ng-content>
+
+<div class="modal-body">
+    {{body}}
+</div>
+<ng-content select="[body]"></ng-content>
+
+<div class="modal-footer">
+    <button mat-raised-button type="button" class="btn btn-primary mr-2" (click)="close()">
+        {{confirmButtonText}}
+    </button>
+    <button mat-raised-button type="button" class="btn btn-outline-dark" (click)="dismiss()">
+        {{closeButtonText}}
+    </button>
+</div>
+<ng-content select="[footer]"></ng-content>
