@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 const API_URL = 'http://localhost:8080'
 
@@ -25,6 +25,17 @@ export class ProductService {
      catchError((error => {
       throw error;
      }))
+     )
+  }
+
+  getProductById(productId: number): Observable<any> {
+    return this.http.get(`${API_URL}/products/${productId}`)
+    .pipe(map(product => {
+       return product;
+     }),
+      catchError((error => {
+        throw error;
+      }))
      )
   }
 }
