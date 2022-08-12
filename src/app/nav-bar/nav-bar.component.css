@@ -1,0 +1,26 @@
+.container {
+	border: 1px solid #DDDDDD;
+	width: 70%;
+	height: 130px;
+	border-radius: 30px;
+	position: relative;
+	background-color: #f9f9f9;
+	top: 20px;
+	margin: auto;
+}
+
+.tag {
+  z-index: 1000;
+  padding: 5px;
+  color: #20013c;
+  font-weight: bold;
+  text-align: center;
+  font-size: 30px;
+	line-height: 30px;
+}
+
+@media (min-width: 768px) {
+  .tag {
+    font-size: 50px;
+  }
+}
