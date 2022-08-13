@@ -1,3 +1,4 @@
+import { SnackbarService } from './../../Utils/snackbar.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BasketService } from './../../basket/basket.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -13,7 +14,8 @@ export class ViewProductModalComponent implements OnInit {
 
   constructor(
     private basketService: BasketService,
-    private modalService: NgbActiveModal
+    private modalService: NgbActiveModal,
+    private snackbarService: SnackbarService
   ) { }
 
   ngOnInit(): void {
@@ -22,10 +24,19 @@ export class ViewProductModalComponent implements OnInit {
   /**
    * Adds item to a users basket
    */
-  addItemToBasket(): void {
-    this.basketService.addItemToBasket(1, {id: 1, quantity: 1}).subscribe(
+  addItemToBasket(product: any): void {
+    const payload = {
+      id: product.id,
+      quantity: 1
+    }
+    this.basketService.addItemToBasket(1, payload).subscribe(
       (res) => {
-        console.log(res);
+        this.snackbarService.onSuccess(
+          'Item added to basket',
+          'success-snackbar'
+        )
+        this.close();
+        window.location.reload();
       }
     )
   }

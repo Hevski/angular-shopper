@@ -29,7 +29,6 @@ export class ProductsContainerComponent implements OnInit {
     this.productService.getProducts(12, this.searchTerm).subscribe(
       (products => {
         this.products = products;
-        console.log(this.products);
       })
     )
   }

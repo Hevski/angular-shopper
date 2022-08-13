@@ -31,8 +31,13 @@ export class BasketService {
     )
   }
 
+  /**
+   * Add item to users basket
+   * @param userId 
+   * @param body 
+   */
   addItemToBasket(userId: number, body: any): Observable<any> {
-    return this.http.post(`${API_URL}/carts/${userId}/products`, body)
+    return this.http.put(`${API_URL}/carts/${userId}`, {products: [body]})
       .pipe(map(carts => {
           return carts;
         }),
