@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
+import { Component, Input, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',

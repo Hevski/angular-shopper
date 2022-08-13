@@ -24,23 +24,23 @@ export class ProductService {
     // seperate api calls instead.
     if (searchTerm) {
       return this.http.get(`${API_URL}/products?q=${searchTerm}`)
-      .pipe(map(products => {
-        return products;
-      }),
-      catchError((error => {
-        throw error;
-      }))
-      )
+        .pipe(map(products => {
+          return products;
+        }),
+          catchError((error => {
+            throw error;
+          }))
+        )
     } else {
       return this.http.get(`${API_URL}/products?_limit=${limit}`)
-      .pipe(map(products => {
-        return products;
-      }),
-      catchError((error => {
-        throw error;
-      }))
-      )
-      }
+        .pipe(map(products => {
+          return products;
+        }),
+          catchError((error => {
+            throw error;
+          }))
+        )
+    }
   }
 
   /**
@@ -49,27 +49,27 @@ export class ProductService {
    */
   getProductById(productId: number): Observable<any> {
     return this.http.get(`${API_URL}/products/${productId}`)
-    .pipe(map(product => {
-       return product;
-     }),
-      catchError((error => {
-        throw error;
-      }))
-     )
+      .pipe(map(product => {
+        return product;
+      }),
+        catchError((error => {
+          throw error;
+        }))
+      )
   }
 
   deleteProduct(productId: number): Observable<any> {
     return this.http.delete(`${API_URL}/products/${productId}`)
-    .pipe(map(product => {
-       return product;
-     }),
-      catchError((error => {
-        this.snackbar.onError(
-        'Error deleting product',
-        'error-snackbar'
+      .pipe(map(product => {
+        return product;
+      }),
+        catchError((error => {
+          this.snackbar.onError(
+            'Error deleting product',
+            'error-snackbar'
+          )
+          throw error;
+        }))
       )
-        throw error;
-      }))
-     )
   }
 }

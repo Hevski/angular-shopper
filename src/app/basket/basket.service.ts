@@ -13,7 +13,7 @@ export class BasketService {
 
   constructor(
     private http: HttpClient,
-    private snackbar : SnackbarService
+    private snackbar: SnackbarService
   ) { }
 
   /**
@@ -25,10 +25,10 @@ export class BasketService {
       .pipe(map(cart => {
         return cart;
       }),
-      catchError((error => {
-      throw error;
-      }))
-    )
+        catchError((error => {
+          throw error;
+        }))
+      )
   }
 
   /**
@@ -38,17 +38,17 @@ export class BasketService {
    */
   addItemToBasket(userId: number, body: any): Observable<any> {
     // TODO: This is replacing pruducts for a users cart rather than adding to it.
-    return this.http.put(`${API_URL}/carts/${userId}`, {products: [body]})
+    return this.http.put(`${API_URL}/carts/${userId}`, { products: [body] })
       .pipe(map(carts => {
-          return carts;
-        }),
+        return carts;
+      }),
         catchError((error => {
           this.snackbar.onError(
             'Item not added',
             'error-snackbar'
           )
-        throw error;
+          throw error;
         }))
       )
-    }
+  }
 }

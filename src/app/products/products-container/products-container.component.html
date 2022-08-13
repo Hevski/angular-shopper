@@ -14,8 +14,8 @@
 				<p class="mb-1">{{product.name}}</p>
 				<p class="mb-1">£ {{product.price}}</p>
 				<div *ngIf="isAdmin" class="d-flex flex-row justify-content-center">
-					<button (click)="openEditProductModal(product); $event.stopPropagation()" class="btn" ngbTooltip="Edit item" triggers="hover"
-						tooltipClass="text-nowrap" placement="right">
+					<button (click)="openEditProductModal(product); $event.stopPropagation()" class="btn"
+						ngbTooltip="Edit item" triggers="hover" tooltipClass="text-nowrap" placement="right">
 						<mat-icon>edit</mat-icon>
 					</button>
 					<button (click)="openDeleteProductModal(product.id); $event.stopPropagation()" class="btn"
