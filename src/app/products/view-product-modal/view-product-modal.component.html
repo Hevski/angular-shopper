@@ -1,7 +1,21 @@
-<app-modal [title]="title">
+<app-modal [title]="title" [customFooter]="true">
   <div body class="modal-body">
     <img src="{{product?.defaultImage}}" alt="Random image" class="image-size">
     {{product?.description}}
   </div>
-
+  <div footer class="modal-footer">
+    <button 
+     mat-raised-button 
+     (click)="close()" 
+     type="button" 
+     class="btn btn-default mat-colour">
+      Close
+    </button>
+    <button 
+     mat-raised-button type="submit" 
+     (click)="addItemToBasket()"
+     class="btn btn-primary mr-2">
+      Add item
+    </button>
+  </div>
 </app-modal>

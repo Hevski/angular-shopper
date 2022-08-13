@@ -20,12 +20,23 @@ export class BasketService {
    */
   getBasketForUser(userId: number): Observable<any> {
     return this.http.get(`${API_URL}/carts/${userId}`)
-      .pipe(map(carts => {
-        return carts;
+      .pipe(map(cart => {
+        return cart;
       }),
       catchError((error => {
       throw error;
       }))
     )
   }
+
+  addItemToBasket(userId: number, body: any): Observable<any> {
+    return this.http.post(`${API_URL}/carts/${userId}/products`, body)
+      .pipe(map(carts => {
+          return carts;
+        }),
+        catchError((error => {
+        throw error;
+        }))
+      )
+    }
 }

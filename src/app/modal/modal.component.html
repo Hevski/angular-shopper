@@ -8,12 +8,19 @@
 </div>
 <ng-content select="[body]"></ng-content>
 
-<div class="modal-footer">
-    <button mat-raised-button type="button" class="btn btn-primary mr-2" (click)="close()">
-        {{confirmButtonText}}
+<div *ngIf="!customFooter" class="modal-footer">
+    <button
+     *ngIf="showConfirmationButton"
+     mat-raised-button type="button" 
+     class="btn btn-primary mr-2" 
+     (click)="close()">
+     {{confirmButtonText}}
     </button>
-    <button mat-raised-button type="button" class="btn btn-outline-dark" (click)="dismiss()">
-        {{closeButtonText}}
+    <button 
+    mat-raised-button type="button" 
+    class="btn btn-outline-dark" 
+    (click)="dismiss()">
+    {{closeButtonText}}
     </button>
 </div>
 <ng-content select="[footer]"></ng-content>

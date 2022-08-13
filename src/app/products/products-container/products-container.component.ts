@@ -43,7 +43,8 @@ export class ProductsContainerComponent implements OnInit {
    });
    modalRef.componentInstance.title = product.name;
    modalRef.componentInstance.product = product;
-   modalRef.componentInstance.confirmButtonText = 'Add item'
+   modalRef.componentInstance.confirmButtonText = 'Add item';
+   modalRef.componentInstance.customFooter = true;
    modalRef.result.then(
     (confirmed) => {
       // add to basket
