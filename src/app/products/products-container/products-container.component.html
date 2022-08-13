@@ -1,48 +1,29 @@
 <div class="d-flex">
-	<app-search 
-		[apiCall]="handleSearchCallBack" 
-		[searchTerm]="searchTerm">
+	<app-search [apiCall]="handleSearchCallBack" [searchTerm]="searchTerm">
 	</app-search>
-	<button
-	 (click)="initAdmin()"
-	 ngbTooltip="Switch to admin"
-	 triggers="hover"
-	 tooltipClass="text-nowrap"
-	 placement="right"
-	 class="btn m-4">
-   Admin
+	<button (click)="initAdmin()" ngbTooltip="Switch to admin" triggers="hover" tooltipClass="text-nowrap"
+		placement="right" class="btn m-4">
+		{{isAdmin ? 'Back to shop' : 'Admin'}}
 	</button>
 </div>
 <div class="container">
-  <div *ngFor="let product of products">
+	<div *ngFor="let product of products">
 		<div class="product-item">
-			<button 
-			 class="btn" 
-			 (click)="openProductModal(product)">
+			<button class="btn" (click)="openProductModal(product)">
 				<img src="{{product?.defaultImage}}" alt="Random image" width="100" height="100">
 				<p class="mb-1">{{product.name}}</p>
 				<p class="mb-1">£ {{product.price}}</p>
 				<div *ngIf="isAdmin" class="d-flex flex-row justify-content-center">
-					<button
-					  (click)="$event.stopPropagation()"
-					  class="btn"
-						ngbTooltip="Edit item"
-						triggers="hover"
-						tooltipClass="text-nowrap"
-						placement="right">
-	        <mat-icon>edit</mat-icon>
+					<button (click)="openEditProductModal(product); $event.stopPropagation()" class="btn" ngbTooltip="Edit item" triggers="hover"
+						tooltipClass="text-nowrap" placement="right">
+						<mat-icon>edit</mat-icon>
 					</button>
-					<button 
-					  (click)="openDeleteProductModal(product.id); $event.stopPropagation()"
-					  class="btn" 
-						ngbTooltip="Remove item" 
-						triggers="hover" 
-						tooltipClass="text-nowrap" 
-						placement="right">
+					<button (click)="openDeleteProductModal(product.id); $event.stopPropagation()" class="btn"
+						ngbTooltip="Remove item" triggers="hover" tooltipClass="text-nowrap" placement="right">
 						<mat-icon>delete</mat-icon>
 					</button>
 				</div>
 			</button>
 		</div>
-  </div>
+	</div>
 </div>

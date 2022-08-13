@@ -1,3 +1,4 @@
+import { EditProductModalComponent } from './../edit-product-modal/edit-product-modal.component';
 import { SnackbarService } from './../../Utils/snackbar.service';
 import { ViewProductModalComponent } from './../view-product-modal/view-product-modal.component';
 import { Component, OnInit } from '@angular/core';
@@ -35,7 +36,7 @@ export class ProductsContainerComponent implements OnInit {
   /**
    * Gets available products
    */
-  getproducts(): void {    
+  getproducts(): void {
     this.productService.getProducts(12, this.searchTerm).subscribe(
       (products => {
         this.products = products;
@@ -47,22 +48,22 @@ export class ProductsContainerComponent implements OnInit {
    * Opens the view product modal
    */
   openProductModal(product: any): void {
-   const modalRef = this.modalService.open(ViewProductModalComponent, {
-    backdrop: 'static',
-    windowClass: 'large-width'
-   });
-   modalRef.componentInstance.title = product.name;
-   modalRef.componentInstance.product = product;
-   modalRef.componentInstance.confirmButtonText = 'Add item';
-   modalRef.componentInstance.customFooter = true;
-   modalRef.result.then(
-    (confirmed) => {
-      this.getproducts();
-    },
-    (dismissed) => {
-      this.getproducts();
-    }
-   )
+    const modalRef = this.modalService.open(ViewProductModalComponent, {
+      backdrop: 'static',
+      windowClass: 'large-width'
+    });
+    modalRef.componentInstance.title = product.name;
+    modalRef.componentInstance.product = product;
+    modalRef.componentInstance.confirmButtonText = 'Add item';
+    modalRef.componentInstance.customFooter = true;
+    modalRef.result.then(
+      (confirmed) => {
+        this.getproducts();
+      },
+      (dismissed) => {
+        this.getproducts();
+      }
+    )
   }
 
   /**
@@ -78,17 +79,19 @@ export class ProductsContainerComponent implements OnInit {
     const modalRef = this.modalService.open(ModalComponent, {
       backdrop: 'static'
     });
-    modalRef.componentInstance.title = 'Delete product'
+    modalRef.componentInstance.title = 'Delete product';
     modalRef.componentInstance.body = 'Are you sure you want to delete this product?';
-    modalRef.componentInstance.confirmButtonText = 'Delete'
+    modalRef.componentInstance.confirmButtonText = 'Delete';
     modalRef.result.then(
       (confirmed) => {
         this.deleteProduct(productId);
       },
-      (dismissed) => {}
+      (dismissed) => {
+        this.getproducts();
+      }
     );
   }
- 
+
   /**
    * Deletes a product
    * @param product
@@ -97,8 +100,8 @@ export class ProductsContainerComponent implements OnInit {
     this.productService.deleteProduct(productId).subscribe(
       (res) => {
         this.snackbar.onSuccess(
-        'Product deleted',
-        'success-snackbar'
+          'Product deleted',
+          'success-snackbar'
         );
       }
     );
@@ -108,8 +111,25 @@ export class ProductsContainerComponent implements OnInit {
     window.location.reload();
   }
 
-  openEditProductModal(): void {
-    
+  /**
+   * Opens the edit product modal
+   */
+  openEditProductModal(product: any): void {
+    const modalRef = this.modalService.open(EditProductModalComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.product = product;
+    modalRef.componentInstance.title = 'Edit product';
+    modalRef.componentInstance.confirmButtonText = 'Add item';
+    modalRef.componentInstance.customFooter = true;
+    modalRef.result.then(
+      (confirmed) => {
+        this.getproducts();
+      },
+      (dismissed) => {
+        this.getproducts()
+      }
+    );
   }
 
 }
