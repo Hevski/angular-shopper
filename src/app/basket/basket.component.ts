@@ -1,3 +1,4 @@
+import { UserService } from './../users/user.service';
 import { ProductService } from './../products/product.service';
 import { Component, OnInit } from '@angular/core';
 import { BasketService } from './basket.service';
@@ -12,13 +13,16 @@ export class BasketComponent implements OnInit {
   productsInBasket = [] as any;
   total = 0;
   productQuantities = {} as any;
+  userId!: number;
 
   constructor(
     private basketService: BasketService,
-    private productService: ProductService
+    private productService: ProductService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
+    this.userId = this.userService.getUserId();
     this.getBasketForUser();
   }
 
@@ -27,7 +31,7 @@ export class BasketComponent implements OnInit {
    */
   getBasketForUser(): void {
     // Hardcoded user id - Would get this from the logged in user in an auth service using cookies, session storage or a user details resolver.
-    this.basketService.getBasketForUser(2).subscribe(
+    this.basketService.getBasketForUser(this.userId).subscribe(
       (basket) => {
         this.basket = basket;
         this.getProductsInBasket();
