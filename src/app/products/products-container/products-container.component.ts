@@ -11,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ProductsContainerComponent implements OnInit {
   products: any;
+  searchTerm = ''
 
   constructor(
     private productService: ProductService,
@@ -25,7 +26,7 @@ export class ProductsContainerComponent implements OnInit {
    * Gets available products
    */
   getproducts(): void {
-    this.productService.getProducts(12).subscribe(
+    this.productService.getProducts(12, this.searchTerm).subscribe(
       (products => {
         this.products = products;
         console.log(this.products);
@@ -54,5 +55,14 @@ export class ProductsContainerComponent implements OnInit {
     }
    )
   }
+
+  /**
+   * Callback function that gets passed to search component
+   * @param searchTerm
+   */
+  handleSearchCallBack = (searchTerm: string): void => {
+    this.searchTerm = searchTerm;
+    this.getproducts();
+  };
 
 }

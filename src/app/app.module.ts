@@ -8,10 +8,13 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductsContainerComponent } from './products/products-container/products-container.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ModalComponent } from './modal/modal.component';
+import { ModalComponent } from './ui-components/modal/modal.component';
+import { SearchComponent } from './ui-components/search/search.component';
 import { ViewProductModalComponent } from './products/view-product-modal/view-product-modal.component';
 import { BasketComponent } from './basket/basket.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,14 +24,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ProductsContainerComponent,
     ModalComponent,
     ViewProductModalComponent,
-    BasketComponent
+    BasketComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule,
+    FormsModule
   ],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent]

@@ -1,4 +1,8 @@
 <div class="container">
+	<app-search
+	 [apiCall]="handleSearchCallBack"
+	 [searchTerm]="searchTerm">
+	</app-search>
   <div *ngFor="let product of products">
 		<div class="product-item">
 			<button class="btn" (click)="openProductModal(product)">

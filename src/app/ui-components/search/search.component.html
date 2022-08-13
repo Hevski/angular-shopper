@@ -1,0 +1,24 @@
+<div class="nowrap">
+    <mat-icon class="search-form" matPrefix>
+        search
+    </mat-icon>
+    <label>
+    <input 
+			matInput 
+			type="search" 
+			[(ngModel)]="searchTerm" 
+			(ngModelChange)="onChange($event)" 
+			placeholder="search"
+			class="search-input mb-2">
+    </label>
+    <mat-icon 
+			(click)="resetSearch()" 
+			class="cursor-pointer" 
+			ngbTooltip="Reset search"
+			triggers="hover" 
+			placement="right" 
+			tooltipClass="text-nowrap" 
+			matSuffix>
+        close
+    </mat-icon>
+</div>
