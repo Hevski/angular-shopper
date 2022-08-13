@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-edit-product-modal',
@@ -6,10 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-product-modal.component.css']
 })
 export class EditProductModalComponent implements OnInit {
+  @Input() title!: string
+  @Input() product: any;
 
-  constructor() { }
+  constructor(
+    private modalService: NgbActiveModal
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  updateItem(): void {
+    console.log('updated', this.product);
+  }
+
+  /**
+ * Close the modal
+ */
+  close(): void {
+    this.modalService.dismiss();
   }
 
 }

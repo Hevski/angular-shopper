@@ -1,1 +1,10 @@
-<p>edit-product-modal works!</p>
+<app-modal [title]="title" [customFooter]="true" [customBody]="true">
+<div footer class="modal-footer">
+    <button mat-raised-button (click)="close()" type="button" class="btn btn-default mat-colour">
+        Close
+    </button>
+    <button mat-raised-button type="submit" (click)="updateItem()" class="btn btn-primary mr-2">
+        Edit
+    </button>
+</div>
+</app-modal>
