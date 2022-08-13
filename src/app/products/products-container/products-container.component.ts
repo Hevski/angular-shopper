@@ -1,3 +1,4 @@
+import { SnackbarService } from './../../Utils/snackbar.service';
 import { ViewProductModalComponent } from './../view-product-modal/view-product-modal.component';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
@@ -12,14 +13,23 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ProductsContainerComponent implements OnInit {
   products: any;
   searchTerm = ''
+  isAdmin: boolean = false;
 
   constructor(
     private productService: ProductService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private snackbar: SnackbarService
   ) { }
 
   ngOnInit(): void {
     this.getproducts();
+  }
+
+  /**
+   * Initiates admin functionality
+   */
+  initAdmin(): void {
+    this.isAdmin = !this.isAdmin;
   }
 
   /**
@@ -63,5 +73,20 @@ export class ProductsContainerComponent implements OnInit {
     this.searchTerm = searchTerm;
     this.getproducts();
   };
+
+  /**
+   * Deletes a product
+   * @param product
+   */
+  deleteProduct(productId: any): void {
+    this.productService.deleteProduct(productId).subscribe(
+      (res) => {
+        this.snackbar.onSuccess(
+        'Product removed',
+        'success-snackbar'
+        );
+      }
+    )
+  }
 
 }

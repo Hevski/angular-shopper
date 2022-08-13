@@ -1,3 +1,4 @@
+import { SnackbarService } from './../Utils/snackbar.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs';
@@ -11,7 +12,8 @@ const API_URL = 'http://localhost:8080'
 export class ProductService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private snackbar: SnackbarService
   ) { }
 
   /**
@@ -51,6 +53,21 @@ export class ProductService {
        return product;
      }),
       catchError((error => {
+        throw error;
+      }))
+     )
+  }
+
+  deleteProduct(productId: number): Observable<any> {
+    return this.http.delete(`${API_URL}/products/${productId}`)
+    .pipe(map(product => {
+       return product;
+     }),
+      catchError((error => {
+        this.snackbar.onError(
+        'Error deleting product',
+        'error-snackbar'
+      )
         throw error;
       }))
      )

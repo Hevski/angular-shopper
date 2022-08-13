@@ -15,7 +15,7 @@ export class ViewProductModalComponent implements OnInit {
   constructor(
     private basketService: BasketService,
     private modalService: NgbActiveModal,
-    private snackbarService: SnackbarService
+    private snackbar: SnackbarService
   ) { }
 
   ngOnInit(): void {
@@ -31,10 +31,10 @@ export class ViewProductModalComponent implements OnInit {
     }
     this.basketService.addItemToBasket(1, payload).subscribe(
       (res) => {
-        this.snackbarService.onSuccess(
+        this.snackbar.onSuccess(
           'Item added to basket',
           'success-snackbar'
-        )
+        );
         this.close();
         window.location.reload();
       }
