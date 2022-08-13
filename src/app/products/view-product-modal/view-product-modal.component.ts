@@ -29,7 +29,7 @@ export class ViewProductModalComponent implements OnInit {
       id: product.id,
       quantity: 1
     }
-    this.basketService.addItemToBasket(1, payload).subscribe(
+    this.basketService.addItemToBasket(2, payload).subscribe(
       (res) => {
         this.snackbar.onSuccess(
           'Item added to basket',
