@@ -1,3 +1,4 @@
+import { SnackbarService } from './../Utils/snackbar.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs';
@@ -11,7 +12,8 @@ const API_URL = 'http://localhost:8080'
 export class BasketService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private snackbar : SnackbarService
   ) { }
 
   /**
@@ -35,6 +37,10 @@ export class BasketService {
           return carts;
         }),
         catchError((error => {
+          this.snackbar.onError(
+            'Item not added',
+            'error-snackbar'
+          )
         throw error;
         }))
       )

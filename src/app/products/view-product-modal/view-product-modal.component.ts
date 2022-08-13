@@ -19,6 +19,9 @@ export class ViewProductModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Adds item to a users basket
+   */
   addItemToBasket(): void {
     this.basketService.addItemToBasket(1, {id: 1, quantity: 1}).subscribe(
       (res) => {
@@ -27,6 +30,9 @@ export class ViewProductModalComponent implements OnInit {
     )
   }
 
+  /**
+   * Close the modal
+   */
   close(): void {
     this.modalService.dismiss();
   }

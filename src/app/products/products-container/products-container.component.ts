@@ -47,10 +47,10 @@ export class ProductsContainerComponent implements OnInit {
    modalRef.componentInstance.customFooter = true;
    modalRef.result.then(
     (confirmed) => {
-      // add to basket
+      this.getproducts();
     },
     (dismissed) => {
-      // Something else
+      this.getproducts();
     }
    )
   }

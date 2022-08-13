@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './modal/modal.component';
 import { ViewProductModalComponent } from './products/view-product-modal/view-product-modal.component';
 import { BasketComponent } from './basket/basket.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { BasketComponent } from './basket/basket.component';
     BrowserAnimationsModule,
     NgbModule,
     HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent]

@@ -4,3 +4,17 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.error-snackbar {
+  color: white;
+  background-color: red;
+  margin-top: 15px;
+  z-index: 1000;
+}
+
+.success-snackbar {
+  color: white;
+  background-color: green;
+  margin-top: 15px;
+  z-index: 1000;
+}
