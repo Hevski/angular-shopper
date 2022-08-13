@@ -10,6 +10,7 @@ import { BasketService } from './basket.service';
 export class BasketComponent implements OnInit {
   basket: any;
   productsInBasket = [] as any;
+  total = 0;
 
   constructor(
     private basketService: BasketService,
@@ -51,9 +52,19 @@ export class BasketComponent implements OnInit {
   this.productService.getProductById(productId).subscribe(
     (product => {
       this.productsInBasket.push(product);
-      console.log(this.productsInBasket);
+      this.calculateTotal();
     })
   )
+}
+
+/**
+ * Calculate the baskets total
+ */
+calculateTotal(): any {
+  this.productsInBasket.forEach((item: any) => {
+    this.total += item.price;
+    console.log(this.total);
+  })
 }
   
 
