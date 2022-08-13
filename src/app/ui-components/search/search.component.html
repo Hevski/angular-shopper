@@ -1,15 +1,12 @@
-<div class="nowrap">
-    <mat-icon class="search-form" matPrefix>
-        search
-    </mat-icon>
+<div class="no-wrap">
     <label>
     <input 
 			matInput 
 			type="search" 
 			[(ngModel)]="searchTerm" 
 			(ngModelChange)="onChange($event)" 
-			placeholder="search"
-			class="search-input mb-2">
+			placeholder="Search products"
+			class="m-4">
     </label>
     <mat-icon 
 			(click)="resetSearch()" 

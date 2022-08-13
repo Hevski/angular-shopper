@@ -1,13 +1,14 @@
-<div class="container">
-	<app-search
-	 [apiCall]="handleSearchCallBack"
-	 [searchTerm]="searchTerm">
+<div>
+	<app-search [apiCall]="handleSearchCallBack" [searchTerm]="searchTerm">
 	</app-search>
+</div>
+<div class="container">
   <div *ngFor="let product of products">
 		<div class="product-item">
 			<button class="btn" (click)="openProductModal(product)">
 				<img src="{{product?.defaultImage}}" alt="Random image" width="100" height="100">
 				<p>{{product.name}}</p>
+				<p>£ {{product.price}}</p>
 			</button>
 		</div>
   </div>
