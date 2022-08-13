@@ -15,6 +15,7 @@ import { BasketComponent } from './basket/basket.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import { EditProductModalComponent } from './products/edit-product-modal/edit-product-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     ModalComponent,
     ViewProductModalComponent,
     BasketComponent,
-    SearchComponent
+    SearchComponent,
+    EditProductModalComponent
   ],
   imports: [
     BrowserModule,

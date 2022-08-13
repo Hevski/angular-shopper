@@ -26,7 +26,7 @@ export class BasketComponent implements OnInit {
    * Get baksets for a specific user id
    */
   getBasketForUser(): void {
-    // Hardcoded user id 1 - Would get this from the logged in user in an auth service using cookies, session storage or a user details resolver.
+    // Hardcoded user id - Would get this from the logged in user in an auth service using cookies, session storage or a user details resolver.
     this.basketService.getBasketForUser(2).subscribe(
       (basket) => {
         this.basket = basket;
