@@ -2,8 +2,8 @@ import { SnackbarService } from './../../Utils/snackbar.service';
 import { ViewProductModalComponent } from './../view-product-modal/view-product-modal.component';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
-import {PageEvent} from '@angular/material/paginator';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from 'src/app/ui-components/modal/modal.component';
 
 @Component({
   selector: 'app-products-container',
@@ -35,7 +35,7 @@ export class ProductsContainerComponent implements OnInit {
   /**
    * Gets available products
    */
-  getproducts(): void {
+  getproducts(): void {    
     this.productService.getProducts(12, this.searchTerm).subscribe(
       (products => {
         this.products = products;
@@ -74,6 +74,21 @@ export class ProductsContainerComponent implements OnInit {
     this.getproducts();
   };
 
+  openDeleteProductModal(productId: number): void {
+    const modalRef = this.modalService.open(ModalComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.title = 'Delete product'
+    modalRef.componentInstance.body = 'Are you sure you want to delete this product?';
+    modalRef.componentInstance.confirmButtonText = 'Delete'
+    modalRef.result.then(
+      (confirmed) => {
+        this.deleteProduct(productId);
+      },
+      (dismissed) => {}
+    );
+  }
+ 
   /**
    * Deletes a product
    * @param product
@@ -82,11 +97,19 @@ export class ProductsContainerComponent implements OnInit {
     this.productService.deleteProduct(productId).subscribe(
       (res) => {
         this.snackbar.onSuccess(
-        'Product removed',
+        'Product deleted',
         'success-snackbar'
         );
       }
-    )
+    );
+    this.getproducts();
+    this.isAdmin = false;
+    // TODO: this.getProducts() should reload the products but not working everytime - reloading window instead (wouldn't do this in the real world!)
+    window.location.reload();
+  }
+
+  openEditProductModal(): void {
+    
   }
 
 }

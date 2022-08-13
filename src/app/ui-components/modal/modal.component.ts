@@ -12,7 +12,7 @@ export class ModalComponent implements OnInit {
   @Input() customBody = false;
   @Input() customFooter = false;
   @Input() showConfirmationButton = true;
-  confirmButtonText = 'Add item';
+  @Input() confirmButtonText = 'Add item'
   closeButtonText = 'Close';
   body = ''
 

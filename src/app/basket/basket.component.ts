@@ -11,6 +11,7 @@ export class BasketComponent implements OnInit {
   basket: any;
   productsInBasket = [] as any;
   total = 0;
+  productQuantities = {} as any;
 
   constructor(
     private basketService: BasketService,
@@ -26,10 +27,9 @@ export class BasketComponent implements OnInit {
    */
   getBasketForUser(): void {
     // Hardcoded user id 1 - Would get this from the logged in user in an auth service using cookies, session storage or a user details resolver.
-    this.basketService.getBasketForUser(1).subscribe(
+    this.basketService.getBasketForUser(2).subscribe(
       (basket) => {
         this.basket = basket;
-        console.log(this.basket);
         this.getProductsInBasket();
       }
     )
@@ -40,6 +40,7 @@ export class BasketComponent implements OnInit {
    */
   getProductsInBasket(): any {
     this.basket.products.forEach((item: any) => {
+      this.productQuantities[item.id] = item.quantity;
       this.getProductById(item.id);
     });
   }
@@ -63,7 +64,6 @@ export class BasketComponent implements OnInit {
 calculateTotal(): any {
   this.productsInBasket.forEach((item: any) => {
     this.total += item.price;
-    console.log(this.total);
   })
 }
   
