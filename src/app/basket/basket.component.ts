@@ -54,8 +54,12 @@ export class BasketComponent implements OnInit {
    * @param productId 
    */
   getProductById(productId: number): any {
+    console.log(productId);
+    
     this.productService.getProductById(productId).subscribe(
       (product => {
+        console.log(product);
+        
         this.productsInBasket.push(product);
         this.calculateTotal();
       })
