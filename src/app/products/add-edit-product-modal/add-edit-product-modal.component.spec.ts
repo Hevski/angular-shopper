@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AddEditProductModalComponent } from './add-edit-product-modal.component';
 
@@ -8,7 +11,9 @@ describe('EditProductModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddEditProductModalComponent ]
+      declarations: [ AddEditProductModalComponent ],
+      imports: [MatSnackBarModule, HttpClientModule],
+      providers: [NgbActiveModal]
     })
     .compileComponents();
 

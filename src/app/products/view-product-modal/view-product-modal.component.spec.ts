@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ViewProductModalComponent } from './view-product-modal.component';
 
@@ -8,7 +11,9 @@ describe('ViewProductModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewProductModalComponent ]
+      imports: [HttpClientModule, MatSnackBarModule],
+      declarations: [ ViewProductModalComponent ],
+      providers: [NgbActiveModal]
     })
     .compileComponents();
 
