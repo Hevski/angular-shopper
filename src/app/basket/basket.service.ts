@@ -32,24 +32,25 @@ export class BasketService {
   }
 
   /**
-   * Add item to users basket
+   * Add product to users basket
    * @param userId 
    * @param body 
    */
-  addItemToBasket(userId: number, basketItems: any): Observable<any> {
+  addProductToBasket(userId: number, basketProducts: any): Observable<any> {
     return this.http.patch(`${API_URL}/carts/${userId}`, {
-      products: basketItems
+      products: basketProducts
     })
       .pipe(map(carts => {
         return carts;
       }),
         catchError((error => {
           this.snackbar.onError(
-            'Item not added',
+            'Product not added',
             'error-snackbar'
           )
           throw error;
         }))
       )
   }
+
 }

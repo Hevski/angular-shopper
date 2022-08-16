@@ -53,10 +53,6 @@ export class ProductService {
         return product;
       }),
         catchError((error => {
-          this.snackbar.onError(
-            'Product in basket has been removed from the store',
-            'error-snackbar'
-          )
           throw error;
         }))
       )

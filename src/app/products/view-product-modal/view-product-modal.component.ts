@@ -36,30 +36,34 @@ export class ViewProductModalComponent implements OnInit {
   }
 
   /**
-   * Adds item to a users basket
+   * Updates a users basket
    */
   updateUserBasket(product: any): void {
     let productsInBasket = [] as any;
     this.basketService.getBasketForUser(this.userId).subscribe(
       (basket => {
         productsInBasket = basket.products;
-        const basketItem = {
+        const basketProduct = {
           id: product.id,
           quantity: 1
         }
-        const existingItem = productsInBasket.find((item: any) => item.id === basketItem.id);
-        if (existingItem) {
-          existingItem.quantity += 1;
+        const existingProduct = productsInBasket.find((product: any) => product.id === basketProduct.id);
+        if (existingProduct) {
+          existingProduct.quantity += 1;
         } else {
-          productsInBasket.push(basketItem);
+          productsInBasket.push(basketProduct);
         }
-        this.addItemToBasket(productsInBasket);
+        this.addProductToBasket(productsInBasket);
       })
     )
   }
 
-  addItemToBasket(productsInBasket: any): void {
-    this.basketService.addItemToBasket(this.userId, productsInBasket).subscribe(
+  /**
+   * Adds product to basket
+   * @param productsInBasket
+   */
+  addProductToBasket(productsInBasket: any): void {
+    this.basketService.addProductToBasket(this.userId, productsInBasket).subscribe(
       (res) => {
         this.snackbar.onSuccess(
           'Product added to basket',

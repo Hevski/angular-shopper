@@ -52,10 +52,18 @@ export class BasketComponent implements OnInit {
    * Get products in a basket
    */
   getProductsInBasket(): any {
-    this.basket.products.forEach((item: any) => {
-      this.productQuantities[item.id] = item.quantity;
-      this.getProductById(item.id);
+    this.basket.products.forEach((product: any) => {
+      this.setProductQuantities(product);
+      this.getProductById(product.id);
     });
+  }
+
+  /**
+   * Sets the product quantities as a lookup
+   * @param product 
+   */
+  setProductQuantities(product: any): void {
+    this.productQuantities[product.id] = product.quantity;
   }
 
   /**
@@ -76,8 +84,8 @@ export class BasketComponent implements OnInit {
    */
   calculateTotal(): any {
     this.total = 0;
-    this.productsInBasket.forEach((item: any) => {
-      const total = item.price * this.productQuantities[item.id];
+    this.productsInBasket.forEach((product: any) => {
+      const total = product.price * this.productQuantities[product.id];
       this.total += total;
     });
   }
