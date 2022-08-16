@@ -14,6 +14,13 @@ export class ViewProductModalComponent implements OnInit {
   @Input() product: any;
   userId!: number;
 
+  /**
+   * Injects dependencies
+   * @param basketService
+   * @param modalService 
+   * @param snackbar 
+   * @param userService 
+   */
   constructor(
     private basketService: BasketService,
     private modalService: NgbActiveModal,
@@ -21,6 +28,9 @@ export class ViewProductModalComponent implements OnInit {
     private userService: UserService
   ) { }
 
+  /**
+   * Initialises the component
+   */
   ngOnInit(): void {
     this.userId = this.userService.getUserId();
   }

@@ -12,15 +12,22 @@ export class ModalComponent implements OnInit {
   @Input() customBody = false;
   @Input() customFooter = false;
   @Input() showConfirmationButton = true;
-  @Input() confirmButtonText = 'Add item'
+  @Input() confirmButtonText = '';
   closeButtonText = 'Close';
   body = ''
 
+  /**
+   * Injects dependencies
+   * @param modalService
+   */
   constructor(
     private modalService: NgbActiveModal
   ) {
   }
 
+  /**
+   * Initialises the component
+   */
   ngOnInit(): void {
   }
 

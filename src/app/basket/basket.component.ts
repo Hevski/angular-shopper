@@ -15,12 +15,21 @@ export class BasketComponent implements OnInit {
   productQuantities = {} as any;
   userId!: number;
 
+  /**
+   * Injects dependencies
+   * @param basketService
+   * @param productService 
+   * @param userService 
+   */
   constructor(
     private basketService: BasketService,
     private productService: ProductService,
     private userService: UserService
   ) { }
 
+  /**
+   * Initialises the component
+   */
   ngOnInit(): void {
     this.userId = this.userService.getUserId();
     this.getBasketForUser();

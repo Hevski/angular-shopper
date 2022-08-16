@@ -9,12 +9,12 @@
 <ng-content select="[body]"></ng-content>
 
 <div *ngIf="!customFooter" class="modal-footer">
+    <button mat-raised-button type="button" class="btn" (click)="dismiss()">
+        {{closeButtonText}}
+    </button>
     <button *ngIf="showConfirmationButton" mat-raised-button type="button" class="btn btn-primary mr-2"
         (click)="close()">
         {{confirmButtonText}}
-    </button>
-    <button mat-raised-button type="button" class="btn btn-outline-dark" (click)="dismiss()">
-        {{closeButtonText}}
     </button>
 </div>
 <ng-content select="[footer]"></ng-content>

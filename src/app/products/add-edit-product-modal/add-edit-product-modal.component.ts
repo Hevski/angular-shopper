@@ -25,12 +25,21 @@ export class AddEditProductModalComponent implements OnInit {
     ],
   }
 
+  /**
+   * Injects dependencies
+   * @param modalService 
+   * @param productService 
+   * @param snackbar 
+   */
   constructor(
     private modalService: NgbActiveModal,
     private productService: ProductService,
     private snackbar: SnackbarService
   ) { }
 
+  /**
+   * Initialises the component
+   */
   ngOnInit(): void {    
     if (this.isEdit) {
       this.initEditForm()

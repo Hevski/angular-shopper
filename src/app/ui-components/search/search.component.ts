@@ -12,9 +12,15 @@ export class SearchComponent implements OnInit {
   @Input() searchTerm = '';
   $searchTermSubject: Subject<string> = new Subject<string>();
 
+  /**
+   * Injects dependencies
+   */
   constructor() {
   }
 
+  /**
+   * Initialises the component
+   */
   ngOnInit(): void {
     this.$searchTermSubject.pipe(debounceTime(600)).subscribe(search => {
       this.searchTerm = search;

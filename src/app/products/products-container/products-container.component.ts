@@ -16,12 +16,21 @@ export class ProductsContainerComponent implements OnInit {
   searchTerm = ''
   isAdmin: boolean = false;
 
+  /**
+   * Injects dependencies
+   * @param productService
+   * @param modalService 
+   * @param snackbar 
+   */
   constructor(
     private productService: ProductService,
     private modalService: NgbModal,
     private snackbar: SnackbarService
   ) { }
 
+  /**
+   * Initialises the component
+   */
   ngOnInit(): void {
     this.getproducts();
   }
@@ -50,11 +59,11 @@ export class ProductsContainerComponent implements OnInit {
   openProductModal(product: any): void {
     const modalRef = this.modalService.open(ViewProductModalComponent, {
       backdrop: 'static',
-      windowClass: 'large-width'
+      windowClass: 'large-width',
+      keyboard: false,
     });
     modalRef.componentInstance.title = product.name;
     modalRef.componentInstance.product = product;
-    modalRef.componentInstance.confirmButtonText = 'Add item';
     modalRef.componentInstance.customFooter = true;
     modalRef.result.then(
       (confirmed) => {},
@@ -77,7 +86,9 @@ export class ProductsContainerComponent implements OnInit {
    */
   openDeleteProductModal(productId: number): void {
     const modalRef = this.modalService.open(ModalComponent, {
-      backdrop: 'static'
+      backdrop: 'static',
+      windowClass: 'large-width',
+      keyboard: false,
     });
     modalRef.componentInstance.title = 'Delete product';
     modalRef.componentInstance.body = 'Are you sure you want to delete this product?';
@@ -116,7 +127,9 @@ export class ProductsContainerComponent implements OnInit {
    */
   openEditProductModal(product: any): void {
     const modalRef = this.modalService.open(AddEditProductModalComponent, {
-      backdrop: 'static'
+      backdrop: 'static',
+      windowClass: 'large-width',
+      keyboard: false,
     });
     modalRef.componentInstance.product = product;
     modalRef.componentInstance.title = 'Edit product';
@@ -137,7 +150,9 @@ export class ProductsContainerComponent implements OnInit {
    */
   openAddNewProductModal(): void {
     const modalRef = this.modalService.open(AddEditProductModalComponent, {
-      backdrop: 'static'
+      backdrop: 'static',
+      windowClass: 'large-width',
+      keyboard: false,
     });
     modalRef.componentInstance.title = 'Add new product';
     modalRef.componentInstance.customFooter = true;
