@@ -1,5 +1,5 @@
 <app-modal [title]="title" [customFooter]="true" [customBody]="true">
-	<div body class="modal-body">
+	<div *ngIf="isEdit" body class="modal-body">
 		<form class="from-group d-flex flex-column" [formGroup]="editProductForm">
 			<label class="padding">Name</label>
 			<input matInput type="text" formControlName="name">
@@ -13,8 +13,11 @@
 			<button mat-raised-button (click)="close()" type="button" class="btn btn-default mat-colour">
 					Close
 			</button>
-			<button mat-raised-button type="submit" (click)="updateProduct()" class="btn btn-primary mr-2">
+			<button *ngIf="isEdit" mat-raised-button type="submit" (click)="updateProduct()" class="btn btn-primary mr-2" [disabled]="!editProductForm.dirty">
 					Edit
+			</button>
+			<button *ngIf="!isEdit" mat-raised-button type="submit" (click)="addProduct()" class="btn btn-primary mr-2">
+				Add
 			</button>
 	</div>
 </app-modal>

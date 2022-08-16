@@ -1,4 +1,4 @@
-import { EditProductModalComponent } from './../edit-product-modal/edit-product-modal.component';
+import { AddEditProductModalComponent } from './../add-edit-product-modal/add-edit-product-modal.component';
 import { SnackbarService } from './../../Utils/snackbar.service';
 import { ViewProductModalComponent } from './../view-product-modal/view-product-modal.component';
 import { Component, OnInit } from '@angular/core';
@@ -75,6 +75,10 @@ export class ProductsContainerComponent implements OnInit {
     this.getproducts();
   };
 
+  /**
+   * Opens the delete product modal
+   * @param productId
+   */
   openDeleteProductModal(productId: number): void {
     const modalRef = this.modalService.open(ModalComponent, {
       backdrop: 'static'
@@ -115,13 +119,13 @@ export class ProductsContainerComponent implements OnInit {
    * Opens the edit product modal
    */
   openEditProductModal(product: any): void {
-    const modalRef = this.modalService.open(EditProductModalComponent, {
+    const modalRef = this.modalService.open(AddEditProductModalComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.product = product;
     modalRef.componentInstance.title = 'Edit product';
-    modalRef.componentInstance.confirmButtonText = 'Add item';
     modalRef.componentInstance.customFooter = true;
+    modalRef.componentInstance.isEdit = true;
     modalRef.result.then(
       (confirmed) => {
         this.getproducts();
@@ -130,6 +134,14 @@ export class ProductsContainerComponent implements OnInit {
         this.getproducts()
       }
     );
+  }
+
+  openAddNewProductModal(): void {
+    const modalRef = this.modalService.open(AddEditProductModalComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.title = 'Add new product';
+    modalRef.componentInstance.customFooter = true;
   }
 
 }

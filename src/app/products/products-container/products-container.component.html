@@ -5,6 +5,9 @@
 		placement="right" class="btn m-4">
 		{{isAdmin ? 'Back to shop' : 'Admin'}}
 	</button>
+	<button (click)="openAddNewProductModal()" class="btn m-4">
+		Add new product
+	</button>
 </div>
 <div class="container">
 	<div *ngFor="let product of products">

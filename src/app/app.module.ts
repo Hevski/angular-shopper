@@ -15,7 +15,7 @@ import { BasketComponent } from './basket/basket.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EditProductModalComponent } from './products/edit-product-modal/edit-product-modal.component';
+import { AddEditProductModalComponent } from './products/add-edit-product-modal/add-edit-product-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { EditProductModalComponent } from './products/edit-product-modal/edit-pr
     ViewProductModalComponent,
     BasketComponent,
     SearchComponent,
-    EditProductModalComponent
+    AddEditProductModalComponent
   ],
   imports: [
     BrowserModule,
