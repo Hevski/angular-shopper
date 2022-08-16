@@ -37,7 +37,6 @@ export class BasketService {
    * @param body 
    */
   addItemToBasket(userId: number, basketItems: any): Observable<any> {
-    // TODO: This is replacing pruducts for a users cart rather than adding to it.
     return this.http.patch(`${API_URL}/carts/${userId}`, {
       products: basketItems
     })
