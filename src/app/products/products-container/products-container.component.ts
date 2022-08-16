@@ -57,12 +57,8 @@ export class ProductsContainerComponent implements OnInit {
     modalRef.componentInstance.confirmButtonText = 'Add item';
     modalRef.componentInstance.customFooter = true;
     modalRef.result.then(
-      (confirmed) => {
-        this.getproducts();
-      },
-      (dismissed) => {
-        this.getproducts();
-      }
+      (confirmed) => {},
+      (dismissed) => {}
     )
   }
 

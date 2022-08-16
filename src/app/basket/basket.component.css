@@ -6,12 +6,23 @@
   align-items: center;
   border: 1px solid #DDDDDD;
   width: 70%;
-  height: 20%;
+  height: 23%;
   border-radius: 30px;
   background-color: #f9f9f9;
-  margin-top: 30px;
+  margin-top: 17px;
   float: left;
   margin-left: 15%;
   overflow: auto;
   padding: 10px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  max-width: 70%;
+  overflow: auto;
+}
+
+.product-item {
+  margin-right: 10px;
 }

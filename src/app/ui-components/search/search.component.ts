@@ -30,12 +30,4 @@ export class SearchComponent implements OnInit {
     this.$searchTermSubject.next(search);
   }
 
-  /**
-   * Reset the search
-   */
-  resetSearch(): void {
-    this.searchTerm = '';
-    this.apiCall();
-  }
-
 }

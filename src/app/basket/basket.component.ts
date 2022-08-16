@@ -36,7 +36,7 @@ export class BasketComponent implements OnInit {
         this.basket = basket;
         this.getProductsInBasket();
       }
-    )
+    );
   }
 
   /**
@@ -54,25 +54,23 @@ export class BasketComponent implements OnInit {
    * @param productId 
    */
   getProductById(productId: number): any {
-    console.log(productId);
-    
     this.productService.getProductById(productId).subscribe(
       (product => {
-        console.log(product);
-        
         this.productsInBasket.push(product);
         this.calculateTotal();
       })
-    )
+    );
   }
 
   /**
    * Calculate the baskets total
    */
   calculateTotal(): any {
+    this.total = 0;
     this.productsInBasket.forEach((item: any) => {
-      this.total += item.price;
-    })
+      const total = item.price * this.productQuantities[item.id];
+      this.total += total;
+    });
   }
 
 

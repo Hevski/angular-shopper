@@ -28,12 +28,28 @@ export class ViewProductModalComponent implements OnInit {
   /**
    * Adds item to a users basket
    */
-  addItemToBasket(product: any): void {
-    const payload = {
-      id: product.id,
-      quantity: 1
-    }
-    this.basketService.addItemToBasket(this.userId, payload).subscribe(
+  updateUserBasket(product: any): void {
+    let productsInBasket = [] as any;
+    this.basketService.getBasketForUser(this.userId).subscribe(
+      (basket => {
+        productsInBasket = basket.products;
+        const basketItem = {
+          id: product.id,
+          quantity: 1
+        }
+        const existingItem = productsInBasket.find((item: any) => item.id === basketItem.id);
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          productsInBasket.push(basketItem);
+        }
+        this.addItemToBasket(productsInBasket);
+      })
+    )
+  }
+
+  addItemToBasket(productsInBasket: any): void {
+    this.basketService.addItemToBasket(this.userId, productsInBasket).subscribe(
       (res) => {
         this.snackbar.onSuccess(
           'Product added to basket',
@@ -44,6 +60,8 @@ export class ViewProductModalComponent implements OnInit {
       }
     )
   }
+
+  
 
   /**
    * Close the modal

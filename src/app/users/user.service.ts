@@ -9,7 +9,7 @@ const API_URL = 'http://localhost:8080'
 })
 export class UserService {
   user: any;
-  userId = 2;
+  userId = 4;
 
   constructor(
     private http: HttpClient
