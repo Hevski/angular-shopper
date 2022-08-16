@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="productsInBasket.length > 0" class="container">
 	<div *ngFor="let product of productsInBasket">
 		<div class="product-item">
 			<div class="mt-3">
