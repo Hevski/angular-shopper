@@ -36,7 +36,7 @@ export class ViewProductModalComponent implements OnInit {
     this.basketService.addItemToBasket(this.userId, payload).subscribe(
       (res) => {
         this.snackbar.onSuccess(
-          'Item added to basket',
+          'Product added to basket',
           'success-snackbar'
         );
         this.close();

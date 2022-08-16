@@ -58,6 +58,10 @@ export class ProductService {
       )
   }
 
+  /**
+   * Deletes a product from the list
+   * @param productId 
+   */
   deleteProduct(productId: number): Observable<any> {
     return this.http.delete(`${API_URL}/products/${productId}`)
       .pipe(map(product => {
@@ -72,4 +76,30 @@ export class ProductService {
         }))
       )
   }
+
+  /**
+   * U[dates a product
+   * @param productId 
+   * @param productForm 
+   */
+  updateProduct(productId: number, productForm: any): Observable<any> {
+    return this.http.patch(`${API_URL}/products/${productId}`, {
+      name: productForm.name,
+      description: productForm.description,
+      price: productForm.price
+    })
+      .pipe(map(product => {
+        return product;
+      }),
+        catchError((error => {
+          this.snackbar.onError(
+            'Error updating product',
+            'error-snackbar'
+          )
+          throw error;
+        }))
+      )
+  }
+  
+
 }

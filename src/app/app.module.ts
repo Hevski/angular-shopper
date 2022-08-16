@@ -14,7 +14,7 @@ import { ViewProductModalComponent } from './products/view-product-modal/view-pr
 import { BasketComponent } from './basket/basket.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditProductModalComponent } from './products/edit-product-modal/edit-product-modal.component';
 
 @NgModule({
@@ -36,7 +36,8 @@ import { EditProductModalComponent } from './products/edit-product-modal/edit-pr
     HttpClientModule,
     MatSnackBarModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent]

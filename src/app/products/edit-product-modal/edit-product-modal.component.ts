@@ -1,4 +1,7 @@
+import { SnackbarService } from './../../Utils/snackbar.service';
+import { ProductService } from './../product.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -9,16 +12,44 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class EditProductModalComponent implements OnInit {
   @Input() title!: string
   @Input() product: any;
+  editProductForm!: FormGroup;
 
   constructor(
-    private modalService: NgbActiveModal
+    private modalService: NgbActiveModal,
+    private productService: ProductService,
+    private snackbar: SnackbarService
   ) { }
 
   ngOnInit(): void {
+    console.log(this.product);
+    this.initEditForm()
   }
 
-  updateItem(): void {
-    console.log('updated', this.product);
+  /**
+   * Initialise the edit form
+   */
+  initEditForm(): any {
+    this.editProductForm = new FormGroup({
+      name: new FormControl(this.product.name),
+      description: new FormControl(this.product.description),
+      price: new FormControl(this.product.price)
+    })
+  }
+
+  /**
+   * Update product
+   */
+  updateProduct(): void {
+    const productForm = this.editProductForm.getRawValue();
+    this.productService.updateProduct(this.product.id, productForm).subscribe(
+      (product => {
+        console.log(product);
+        this.snackbar.onSuccess(
+          'Product updated',
+          'success-snackbar'
+        );
+      })
+    )
   }
 
   /**
