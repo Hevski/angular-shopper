@@ -50,11 +50,14 @@ export class AddEditProductModalComponent implements OnInit {
     })
   }
 
+  /**
+   * Initialises add new product form
+   */
   initAddProductForm(): any {
     this.addProductForm = new FormGroup({
       name: new FormControl(),
       description: new FormControl(),
-      defaulImage: new FormControl(this.new.defaultImage),
+      defaultImage: new FormControl(this.new.defaultImage),
       images: new FormControl(this.new.images),
       price: new FormControl(),
       discount: new FormControl()
@@ -77,9 +80,20 @@ export class AddEditProductModalComponent implements OnInit {
     )
   }
 
+  /**
+   * Adds a new product to the product list
+   */
   addProduct(): void {
-    console.log('Product added!');
-    
+    const product = this.addProductForm.getRawValue();
+    this.productService.addProduct(product).subscribe(
+      (product => {
+        this.snackbar.onSuccess(
+          'Product added',
+          'success-snackbar'
+        );
+        this.close();
+      })
+    )
   }
 
   /**

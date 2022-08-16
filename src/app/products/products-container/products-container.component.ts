@@ -131,17 +131,28 @@ export class ProductsContainerComponent implements OnInit {
         this.getproducts();
       },
       (dismissed) => {
-        this.getproducts()
+        this.getproducts();
       }
     );
   }
 
+  /**
+   * Opens the add new product modal
+   */
   openAddNewProductModal(): void {
     const modalRef = this.modalService.open(AddEditProductModalComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.title = 'Add new product';
     modalRef.componentInstance.customFooter = true;
+    modalRef.result.then(
+      (confirmed) => {
+        this.getproducts();
+      },
+      (dismissed) => {
+        this.getproducts();
+      }
+    );
   }
 
 }

@@ -40,7 +40,7 @@ export class ViewProductModalComponent implements OnInit {
           'success-snackbar'
         );
         this.close();
-        // window.location.reload();
+        window.location.reload();
       }
     )
   }

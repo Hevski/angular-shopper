@@ -104,6 +104,24 @@ export class ProductService {
         }))
       )
   }
+
+  /**
+   * Adds a new product to the list
+   */
+  addProduct(product: any): Observable<any> {
+    return this.http.post(`${API_URL}/products`, product)
+      .pipe(map(product => {
+        return product;
+      }),
+        catchError((error => {
+          this.snackbar.onError(
+            'Error adding product',
+            'error-snackbar'
+          )
+          throw error;
+        }))
+      )
+  }
   
 
 }
