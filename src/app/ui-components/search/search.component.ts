@@ -5,24 +5,23 @@ import { debounceTime } from 'rxjs/operators';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
   @Input() apiCall: any;
   @Input() searchTerm = '';
-  $searchTermSubject: Subject<string> = new Subject<string>();
+  searchTermSubject$: Subject<string> = new Subject<string>();
 
   /**
    * Injects dependencies
    */
-  constructor() {
-  }
+  constructor() {}
 
   /**
    * Initialises the component
    */
   ngOnInit(): void {
-    this.$searchTermSubject.pipe(debounceTime(600)).subscribe(search => {
+    this.searchTermSubject$.pipe(debounceTime(600)).subscribe((search) => {
       this.searchTerm = search;
       this.apiCall(this.searchTerm);
     });
@@ -33,7 +32,6 @@ export class SearchComponent implements OnInit {
    * @param search
    */
   onChange(search: string): void {
-    this.$searchTermSubject.next(search);
+    this.searchTermSubject$.next(search);
   }
-
 }

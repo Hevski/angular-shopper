@@ -1,20 +1,25 @@
 import { SnackbarService } from './../Utils/snackbar.service';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-const API_URL = 'http://localhost:8080'
+const API_URL = 'http://localhost:3000';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService {
+  private basketUpdateSubject = new Subject<void>();
+  constructor(private http: HttpClient, private snackbar: SnackbarService) {}
 
-  constructor(
-    private http: HttpClient,
-    private snackbar: SnackbarService
-  ) { }
+  getBasketUpdateObservable() {
+    return this.basketUpdateSubject.asObservable();
+  }
+
+  notifyBasketUpdate() {
+    this.basketUpdateSubject.next();
+  }
 
   /**
    * Gets the shops products
@@ -23,101 +28,92 @@ export class ProductService {
     // Normally I would use params to add the searchTerm but couldn't get it working so doing 2
     // seperate api calls instead.
     if (searchTerm) {
-      return this.http.get(`${API_URL}/products?q=${searchTerm}`)
-        .pipe(map(products => {
+      return this.http.get(`${API_URL}/products?q=${searchTerm}`).pipe(
+        map((products) => {
           return products;
         }),
-          catchError((error => {
-            throw error;
-          }))
-        )
+        catchError((error) => {
+          throw error;
+        })
+      );
     } else {
-      return this.http.get(`${API_URL}/products?_limit=${limit}`)
-        .pipe(map(products => {
+      return this.http.get(`${API_URL}/products?_limit=${limit}`).pipe(
+        map((products) => {
           return products;
         }),
-          catchError((error => {
-            throw error;
-          }))
-        )
+        catchError((error) => {
+          throw error;
+        })
+      );
     }
   }
 
   /**
    * Get product by id
-   * @param productId 
+   * @param productId
    */
   getProductById(productId: number): Observable<any> {
-    return this.http.get(`${API_URL}/products/${productId}`)
-      .pipe(map(product => {
+    return this.http.get(`${API_URL}/products/${productId}`).pipe(
+      map((product) => {
         return product;
       }),
-        catchError((error => {
-          throw error;
-        }))
-      )
+      catchError((error) => {
+        throw error;
+      })
+    );
   }
 
   /**
    * Deletes a product from the list
-   * @param productId 
+   * @param productId
    */
   deleteProduct(productId: number): Observable<any> {
-    return this.http.delete(`${API_URL}/products/${productId}`)
-      .pipe(map(product => {
+    return this.http.delete(`${API_URL}/products/${productId}`).pipe(
+      map((product) => {
         return product;
       }),
-        catchError((error => {
-          this.snackbar.onError(
-            'Error deleting product',
-            'error-snackbar'
-          )
-          throw error;
-        }))
-      )
+      catchError((error) => {
+        this.snackbar.onError('Error deleting product', 'error-snackbar');
+        throw error;
+      })
+    );
   }
 
   /**
    * U[dates a product
-   * @param productId 
-   * @param productForm 
+   * @param productId
+   * @param productForm
    */
   updateProduct(productId: number, productForm: any): Observable<any> {
-    return this.http.patch(`${API_URL}/products/${productId}`, {
-      name: productForm.name,
-      description: productForm.description,
-      price: productForm.price
-    })
-      .pipe(map(product => {
-        return product;
-      }),
-        catchError((error => {
-          this.snackbar.onError(
-            'Error updating product',
-            'error-snackbar'
-          )
+    return this.http
+      .patch(`${API_URL}/products/${productId}`, {
+        name: productForm.name,
+        description: productForm.description,
+        price: productForm.price,
+      })
+      .pipe(
+        map((product) => {
+          return product;
+        }),
+        catchError((error) => {
+          this.snackbar.onError('Error updating product', 'error-snackbar');
           throw error;
-        }))
-      )
+        })
+      );
   }
 
   /**
    * Adds a new product to the list
    */
   addProduct(product: any): Observable<any> {
-    return this.http.post(`${API_URL}/products`, product)
-      .pipe(map(product => {
+    return this.http.post(`${API_URL}/products`, product).pipe(
+      map((product) => {
         return product;
       }),
-        catchError((error => {
-          this.snackbar.onError(
-            'Error adding product',
-            'error-snackbar'
-          )
-          throw error;
-        }))
-      )
+      catchError((error) => {
+        this.snackbar.onError('Error adding product', 'error-snackbar');
+        throw error;
+      })
+    );
   }
-  
-
 }

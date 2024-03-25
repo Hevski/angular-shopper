@@ -1,37 +1,34 @@
 import { AddEditProductModalComponent } from './../add-edit-product-modal/add-edit-product-modal.component';
 import { SnackbarService } from './../../Utils/snackbar.service';
 import { ViewProductModalComponent } from './../view-product-modal/view-product-modal.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ProductService } from '../product.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/ui-components/modal/modal.component';
+import { Observable, Subject, startWith, switchMap, take } from 'rxjs';
+
+export interface Product {
+  defaultImage: string;
+  name: string;
+  price: number;
+  id: number;
+  // Other properties
+}
 
 @Component({
   selector: 'app-products-container',
   templateUrl: './products-container.component.html',
-  styleUrls: ['./products-container.component.css']
+  styleUrls: ['./products-container.component.css'],
 })
-export class ProductsContainerComponent implements OnInit {
-  products: any;
-  searchTerm = ''
+export class ProductsContainerComponent {
+  products$!: Observable<Product[]>;
+  searchTerm = '';
   isAdmin: boolean = false;
+  private productService = inject(ProductService);
+  private modalService = inject(NgbModal);
+  private snackbar = inject(SnackbarService);
 
-  /**
-   * Injects dependencies
-   * @param productService
-   * @param modalService 
-   * @param snackbar 
-   */
-  constructor(
-    private productService: ProductService,
-    private modalService: NgbModal,
-    private snackbar: SnackbarService
-  ) { }
-
-  /**
-   * Initialises the component
-   */
-  ngOnInit(): void {
+  constructor() {
     this.getproducts();
   }
 
@@ -46,11 +43,9 @@ export class ProductsContainerComponent implements OnInit {
    * Gets available products
    */
   getproducts(): void {
-    this.productService.getProducts(12, this.searchTerm).subscribe(
-      (products => {
-        this.products = products;
-      })
-    )
+    this.products$ = this.productService
+      .getProducts(12, this.searchTerm)
+      .pipe(take(1));
   }
 
   /**
@@ -68,7 +63,7 @@ export class ProductsContainerComponent implements OnInit {
     modalRef.result.then(
       (confirmed) => {},
       (dismissed) => {}
-    )
+    );
   }
 
   /**
@@ -91,7 +86,8 @@ export class ProductsContainerComponent implements OnInit {
       keyboard: false,
     });
     modalRef.componentInstance.title = 'Delete product';
-    modalRef.componentInstance.body = 'Are you sure you want to delete this product?';
+    modalRef.componentInstance.body =
+      'Are you sure you want to delete this product?';
     modalRef.componentInstance.confirmButtonText = 'Delete';
     modalRef.result.then(
       (confirmed) => {
@@ -108,18 +104,11 @@ export class ProductsContainerComponent implements OnInit {
    * @param product
    */
   deleteProduct(productId: any): void {
-    this.productService.deleteProduct(productId).subscribe(
-      (res) => {
-        this.snackbar.onSuccess(
-          'Product deleted',
-          'success-snackbar'
-        );
-      }
-    );
+    this.productService.deleteProduct(productId).subscribe((res) => {
+      this.snackbar.onSuccess('Product deleted', 'success-snackbar');
+    });
     this.getproducts();
     this.isAdmin = false;
-    // TODO: this.getProducts() should reload the products but not working everytime - reloading window instead (wouldn't do this in the real world!)
-    window.location.reload();
   }
 
   /**
@@ -165,5 +154,4 @@ export class ProductsContainerComponent implements OnInit {
       }
     );
   }
-
 }

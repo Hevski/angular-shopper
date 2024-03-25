@@ -2,11 +2,12 @@ import { UserService } from './../users/user.service';
 import { ProductService } from './../products/product.service';
 import { Component, OnInit } from '@angular/core';
 import { BasketService } from './basket.service';
+import { of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.css']
+  styleUrls: ['./basket.component.css'],
 })
 export class BasketComponent implements OnInit {
   basket: any;
@@ -18,14 +19,14 @@ export class BasketComponent implements OnInit {
   /**
    * Injects dependencies
    * @param basketService
-   * @param productService 
-   * @param userService 
+   * @param productService
+   * @param userService
    */
   constructor(
     private basketService: BasketService,
     private productService: ProductService,
     private userService: UserService
-  ) { }
+  ) {}
 
   /**
    * Initialises the component
@@ -40,12 +41,16 @@ export class BasketComponent implements OnInit {
    */
   getBasketForUser(): void {
     // Hardcoded user id - Would get this from the logged in user in an auth service using cookies, session storage or a user details resolver.
-    this.basketService.getBasketForUser(this.userId).subscribe(
-      (basket) => {
-        this.basket = basket;
-        this.getProductsInBasket();
-      }
-    );
+    this.basketService
+      .getBasketForUser(this.userId)
+      .pipe(
+        switchMap((basket) => {
+          this.basket = basket;
+          this.getProductsInBasket();
+          return of(basket);
+        })
+      )
+      .subscribe();
   }
 
   /**
@@ -60,7 +65,7 @@ export class BasketComponent implements OnInit {
 
   /**
    * Sets the product quantities as a lookup
-   * @param product 
+   * @param product
    */
   setProductQuantities(product: any): void {
     this.productQuantities[product.id] = product.quantity;
@@ -68,15 +73,13 @@ export class BasketComponent implements OnInit {
 
   /**
    * Get product by id
-   * @param productId 
+   * @param productId
    */
   getProductById(productId: number): any {
-    this.productService.getProductById(productId).subscribe(
-      (product => {
-        this.productsInBasket.push(product);
-        this.calculateTotal();
-      })
-    );
+    this.productService.getProductById(productId).subscribe((product) => {
+      this.productsInBasket.push(product);
+      this.calculateTotal();
+    });
   }
 
   /**
@@ -89,6 +92,4 @@ export class BasketComponent implements OnInit {
       this.total += total;
     });
   }
-
-
 }
