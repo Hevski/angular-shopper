@@ -10,16 +10,7 @@ const API_URL = 'http://localhost:3000';
   providedIn: 'root',
 })
 export class ProductService {
-  private basketUpdateSubject = new Subject<void>();
   constructor(private http: HttpClient, private snackbar: SnackbarService) {}
-
-  getBasketUpdateObservable() {
-    return this.basketUpdateSubject.asObservable();
-  }
-
-  notifyBasketUpdate() {
-    this.basketUpdateSubject.next();
-  }
 
   /**
    * Gets the shops products

@@ -79,7 +79,7 @@ export class ViewProductModalComponent implements OnInit {
             'success-snackbar'
           );
           this.close();
-          this.productService.notifyBasketUpdate(); //Need to work out why this is not updating the basket until page reload.
+          this.basketService._itemsSource.next(productsInBasket);
         })
       )
       .subscribe();

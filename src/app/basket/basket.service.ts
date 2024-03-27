@@ -1,6 +1,6 @@
 import { SnackbarService } from './../Utils/snackbar.service';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,7 +10,12 @@ const API_URL = 'http://localhost:3000';
   providedIn: 'root',
 })
 export class BasketService {
+  _itemsSource = new BehaviorSubject<any[]>([]);
+  items$ = this._itemsSource.asObservable();
+
   constructor(private http: HttpClient, private snackbar: SnackbarService) {}
+
+  addItemToBasket(item: any) {}
 
   /**
    * Gets a basket for a specific user id
