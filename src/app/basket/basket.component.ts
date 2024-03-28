@@ -3,6 +3,7 @@ import { ProductService } from './../products/product.service';
 import { Component, OnInit } from '@angular/core';
 import { BasketService } from './basket.service';
 import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
+import { Product } from '../products/products-container/products-container.component';
 
 @Component({
   selector: 'app-basket',
@@ -10,63 +11,66 @@ import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
   styleUrls: ['./basket.component.css'],
 })
 export class BasketComponent implements OnInit {
-  basket: any;
-  productsInBasket$!: Observable<any[]>;
+  productsInBasket$!: Observable<any>;
   total$!: Observable<number>;
   productQuantities = {} as any;
   userId!: number;
 
-  /**
-   * Injects dependencies
-   * @param basketService
-   * @param productService
-   * @param userService
-   */
   constructor(
     private basketService: BasketService,
     private productService: ProductService,
     private userService: UserService
   ) {
-    // TODO - need to figure out why this isn't working and can i reasign it when a user adds an item to the backet.
-    // Basket not showing on first load even though there are items
-    this.productsInBasket$ = this.getBasketForUser();
-    this.productsInBasket$.subscribe((res) => {
-      console.log(res);
+    this.userId = this.userService.getUserId();
+  }
+
+  ngOnInit(): void {
+    this.getBasketForUser();
+    // TODO: need a better way of doing this
+    this.basketService.items$.subscribe((res) => {
+      if (res.length) {
+        this.getProductsInBasket();
+      }
     });
   }
 
-  /**
-   * Initialises the component
-   */
-  ngOnInit(): void {
-    this.userId = this.userService.getUserId();
-    this.getBasketForUser();
-    this.getProductsInBasket();
+  getBasketForUser() {
+    this.productsInBasket$ = this.basketService
+      .getBasketForUser(this.userId)
+      .pipe(
+        switchMap((basket) => {
+          if (!basket.products || basket.products.length === 0) {
+            return of([]);
+          }
+
+          return forkJoin(
+            basket.products.map((product: any) => {
+              this.setProductQuantities(product);
+
+              return this.productService.getProductById(product.id).pipe(
+                map((productDetails) => {
+                  return productDetails;
+                })
+              );
+            })
+          );
+        })
+      );
   }
 
-  /**
-   * Get baksets for a specific user id
-   */
-  getBasketForUser(): Observable<any[]> {
-    // Hardcoded user id - Would get this from the logged in user in an auth service using cookies, session storage or a user details resolver.
-    return this.basketService.getBasketForUser(this.userId).pipe(
-      switchMap((basket) => {
-        this.getProductsInBasket();
-        return of(basket); // Return the basket for further processing if needed
-      })
-    );
-  }
-
-  /**
-   * Get products in a basket
-   */
-  getProductsInBasket(): any {
+  getProductsInBasket(): void {
     this.productsInBasket$ = this.basketService.items$.pipe(
-      switchMap((items) =>
-        forkJoin(
-          items.map((item) => this.productService.getProductById(item.id))
-        )
-      )
+      switchMap((items) => {
+        const itemsWithQuantitiesSet = items.map((item) => {
+          this.setProductQuantities(item);
+          return item;
+        });
+        return forkJoin(
+          itemsWithQuantitiesSet.map((item) =>
+            this.productService.getProductById(item.id)
+          )
+        );
+      })
     );
     this.total$ = this.calculateTotal();
   }
@@ -76,7 +80,6 @@ export class BasketComponent implements OnInit {
    * @param product
    */
   setProductQuantities(product: any): void {
-    //TODO - Need to set these productQuantities somewhere
     this.productQuantities[product.id] = product.quantity;
   }
 

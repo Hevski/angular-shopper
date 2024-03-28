@@ -15,8 +15,6 @@ export class BasketService {
 
   constructor(private http: HttpClient, private snackbar: SnackbarService) {}
 
-  addItemToBasket(item: any) {}
-
   /**
    * Gets a basket for a specific user id
    * @param userId

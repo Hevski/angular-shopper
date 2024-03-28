@@ -3,7 +3,7 @@ import { SnackbarService } from './../../Utils/snackbar.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BasketService } from './../../basket/basket.service';
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { Subject, map, switchMap, tap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { ProductService } from '../product.service';
 
 @Component({
