@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddEditProductModalComponent } from './products/add-edit-product-modal/add-edit-product-modal.component';
 import { CreateAccountFormComponent } from './create-account-form/create-account-form.component';
 import { FormatPhonePipe } from './format-phone.pipe';
+import { MessageSenderComponent } from './message-sender/message-sender.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { FormatPhonePipe } from './format-phone.pipe';
     SearchComponent,
     AddEditProductModalComponent,
     CreateAccountFormComponent,
-    FormatPhonePipe
+    FormatPhonePipe,
+    MessageSenderComponent
   ],
   imports: [
     BrowserModule,

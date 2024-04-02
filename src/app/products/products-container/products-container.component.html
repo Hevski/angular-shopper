@@ -20,6 +20,16 @@
   </button>
 </div>
 <app-create-account-form></app-create-account-form>
+<ng-container *ngIf="messages$ | async as messages">
+  <div *ngIf="isAdmin">
+    <p>New messages</p>
+    <div *ngFor="let message of messages">{{ message }}</div>
+  </div>
+</ng-container>
+<app-message-sender
+  *ngIf="!isAdmin"
+  (messageSend)="addMessage($event)"
+></app-message-sender>
 <ng-container *ngIf="products$ | async as products">
   <div class="container">
     <div *ngFor="let product of products">

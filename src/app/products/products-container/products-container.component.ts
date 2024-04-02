@@ -5,7 +5,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ProductService } from '../product.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/ui-components/modal/modal.component';
-import { Observable, Subject, startWith, switchMap, take } from 'rxjs';
+import { BehaviorSubject, Observable, take } from 'rxjs';
 
 export interface Product {
   defaultImage: string;
@@ -20,6 +20,8 @@ export interface Product {
   styleUrls: ['./products-container.component.css'],
 })
 export class ProductsContainerComponent {
+  private messagesSource = new BehaviorSubject<string[]>([]);
+  public messages$ = this.messagesSource.asObservable();
   products$!: Observable<Product[]>;
   searchTerm = '';
   isAdmin: boolean = false;
@@ -36,6 +38,12 @@ export class ProductsContainerComponent {
    */
   initAdmin(): void {
     this.isAdmin = !this.isAdmin;
+  }
+
+  addMessage(newMessage: string): void {
+    const currentMessage = this.messagesSource.value;
+    const updatedMessages = [...currentMessage, newMessage];
+    this.messagesSource.next(updatedMessages);
   }
 
   /**
