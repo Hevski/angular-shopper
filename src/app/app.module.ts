@@ -12,7 +12,7 @@ import { ModalComponent } from './ui-components/modal/modal.component';
 import { SearchComponent } from './ui-components/search/search.component';
 import { ViewProductModalComponent } from './products/view-product-modal/view-product-modal.component';
 import { BasketComponent } from './basket/basket.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddEditProductModalComponent } from './products/add-edit-product-modal/add-edit-product-modal.component';
