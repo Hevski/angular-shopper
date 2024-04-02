@@ -19,6 +19,7 @@
     Add new product
   </button>
 </div>
+<app-create-account-form></app-create-account-form>
 <ng-container *ngIf="products$ | async as products">
   <div class="container">
     <div *ngFor="let product of products">

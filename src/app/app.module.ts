@@ -16,6 +16,8 @@ import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddEditProductModalComponent } from './products/add-edit-product-modal/add-edit-product-modal.component';
+import { CreateAccountFormComponent } from './create-account-form/create-account-form.component';
+import { FormatPhonePipe } from './format-phone.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { AddEditProductModalComponent } from './products/add-edit-product-modal/
     ViewProductModalComponent,
     BasketComponent,
     SearchComponent,
-    AddEditProductModalComponent
+    AddEditProductModalComponent,
+    CreateAccountFormComponent,
+    FormatPhonePipe
   ],
   imports: [
     BrowserModule,
