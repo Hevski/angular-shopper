@@ -30,5 +30,7 @@
     <p>{{ createAccountForm.value.phone | formatPhone }}</p>
   </div>
 
-  <button type="submit">Create Account</button>
+  <button [disabled]="!createAccountForm.valid" type="submit">
+    Create Account
+  </button>
 </form>
