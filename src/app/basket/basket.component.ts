@@ -1,16 +1,26 @@
 import { UserService } from './../users/user.service';
 import { ProductService } from './../products/product.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BasketService } from './basket.service';
-import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
-import { Product } from '../products/products-container/products-container.component';
+import {
+  Observable,
+  Subject,
+  filter,
+  forkJoin,
+  map,
+  of,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.css'],
 })
-export class BasketComponent implements OnInit {
+export class BasketComponent implements OnInit, OnDestroy {
+  private unsubscribe: Subject<void> = new Subject();
   productsInBasket$!: Observable<any>;
   total$!: Observable<number>;
   productQuantities = {} as any;
@@ -27,11 +37,13 @@ export class BasketComponent implements OnInit {
   ngOnInit(): void {
     this.getBasketForUser();
     // TODO: need a better way of doing this
-    this.basketService.items$.subscribe((res) => {
-      if (res.length) {
-        this.getProductsInBasket();
-      }
-    });
+    this.basketService.items$
+      .pipe(
+        takeUntil(this.unsubscribe),
+        filter((res) => res.length > 0),
+        tap(() => this.getProductsInBasket())
+      )
+      .subscribe();
   }
 
   getBasketForUser() {
@@ -94,5 +106,10 @@ export class BasketComponent implements OnInit {
         return total;
       })
     );
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 }
