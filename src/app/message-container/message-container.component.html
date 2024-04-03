@@ -1,9 +1,8 @@
 <ng-container *ngIf="messages$ | async as messages">
   <div *ngIf="isAdmin">
-    <button class="btn btn-primary">
+    <button class="btn btn-primary" (click)="openMessageModal(messages)">
       {{ messages.length }} new
       {{ messages.length > 1 || !messages.length ? "messages" : "message" }}
     </button>
-    <div *ngFor="let message of messages">{{ message }}</div>
   </div>
 </ng-container>
