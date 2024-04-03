@@ -16,24 +16,11 @@ export class ViewProductModalComponent implements OnInit {
   @Input() title!: string;
   @Input() product: any;
   userId!: number;
+  private readonly basketService = inject(BasketService);
+  private readonly snackbar = inject(SnackbarService);
+  private readonly userService = inject(UserService);
+  private readonly modalService = inject(NgbActiveModal);
 
-  /**
-   * Injects dependencies
-   * @param basketService
-   * @param modalService
-   * @param snackbar
-   * @param userService
-   */
-  constructor(
-    private basketService: BasketService,
-    private modalService: NgbActiveModal,
-    private snackbar: SnackbarService,
-    private userService: UserService
-  ) {}
-
-  /**
-   * Initialises the component
-   */
   ngOnInit(): void {
     this.userId = this.userService.getUserId();
   }

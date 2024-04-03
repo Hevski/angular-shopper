@@ -6,6 +6,7 @@ import { ProductService } from '../product.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/ui-components/modal/modal.component';
 import { BehaviorSubject, Observable, take } from 'rxjs';
+import { MessageServiceService } from 'src/app/message-service.service';
 
 export interface Product {
   defaultImage: string;
@@ -20,30 +21,26 @@ export interface Product {
   styleUrls: ['./products-container.component.css'],
 })
 export class ProductsContainerComponent {
-  private messagesSource = new BehaviorSubject<string[]>([]);
-  public messages$ = this.messagesSource.asObservable();
   products$!: Observable<Product[]>;
   searchTerm = '';
   isAdmin: boolean = false;
   private productService = inject(ProductService);
   private modalService = inject(NgbModal);
   private snackbar = inject(SnackbarService);
+  private readonly messageService = inject(MessageServiceService);
 
   constructor() {
     this.getproducts();
   }
 
-  /**
-   * Initiates admin functionality
-   */
   initAdmin(): void {
     this.isAdmin = !this.isAdmin;
   }
 
   addMessage(newMessage: string): void {
-    const currentMessage = this.messagesSource.value;
+    const currentMessage = this.messageService.messagesSource.value;
     const updatedMessages = [...currentMessage, newMessage];
-    this.messagesSource.next(updatedMessages);
+    this.messageService.messagesSource.next(updatedMessages);
   }
 
   /**

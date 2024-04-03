@@ -1,9 +1,9 @@
 .background-image {
-  background: url("/assets/Images/background.jpg");
-  width: 135%;
-  height: 135%;
+  background-image: url("/assets/Images/background.jpg");
   background-size: cover;
-  background-position: center,center;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 150vh;
 }
 
 @media (min-width: 425px) {

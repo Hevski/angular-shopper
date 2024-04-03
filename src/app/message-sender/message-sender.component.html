@@ -1,2 +1,2 @@
 <input [(ngModel)]="message" type="text" placeholder="Type a message " />
-<button (click)="sendMessage()">Send</button>
+<button [disabled]="!message" (click)="sendMessage()">Send</button>

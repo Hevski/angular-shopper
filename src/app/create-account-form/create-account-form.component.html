@@ -1,5 +1,5 @@
-<form [formGroup]="createAccountForm" (ngSubmit)="onSubmit()">
-  <div>
+<form class="d-flex" [formGroup]="createAccountForm" (ngSubmit)="onSubmit()">
+  <div class="m-1">
     <label for="name">Name:</label>
     <input type="text" formControlName="name" id="name" />
     <div
@@ -9,7 +9,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="m-1">
     <label for="email">Email:</label>
     <input type="email" id="email" formControlName="email" />
     <div
@@ -24,13 +24,18 @@
     </div>
   </div>
 
-  <div>
+  <div class="m-1">
     <label for="phone">Phone Number:</label>
     <input type="tel" id="phone" formControlName="phone" />
     <p>{{ createAccountForm.value.phone | formatPhone }}</p>
   </div>
 
-  <button [disabled]="!createAccountForm.valid" type="submit">
+  <button
+    mat-raised-button
+    class="btn btn-primary button-style"
+    [disabled]="!createAccountForm.valid"
+    type="submit"
+  >
     Create Account
   </button>
 </form>

@@ -19,6 +19,7 @@ import { AddEditProductModalComponent } from './products/add-edit-product-modal/
 import { CreateAccountFormComponent } from './create-account-form/create-account-form.component';
 import { FormatPhonePipe } from './format-phone.pipe';
 import { MessageSenderComponent } from './message-sender/message-sender.component';
+import { MessageContainerComponent } from './message-container/message-container.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MessageSenderComponent } from './message-sender/message-sender.componen
     AddEditProductModalComponent,
     CreateAccountFormComponent,
     FormatPhonePipe,
-    MessageSenderComponent
+    MessageSenderComponent,
+    MessageContainerComponent
   ],
   imports: [
     BrowserModule,
