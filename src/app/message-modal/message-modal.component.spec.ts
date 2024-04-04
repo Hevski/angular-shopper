@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MessageModalComponent } from './message-modal.component';
+import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
 
 describe('MessageModalComponent', () => {
   let component: MessageModalComponent;
@@ -8,9 +9,9 @@ describe('MessageModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MessageModalComponent ]
-    })
-    .compileComponents();
+      declarations: [MessageModalComponent],
+      imports: [MatSnackBarModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MessageModalComponent);
     component = fixture.componentInstance;

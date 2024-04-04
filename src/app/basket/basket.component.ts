@@ -87,10 +87,6 @@ export class BasketComponent implements OnInit, OnDestroy {
     this.total$ = this.calculateTotal();
   }
 
-  /**
-   * Sets the product quantities as a lookup
-   * @param product
-   */
   setProductQuantities(product: any): void {
     this.productQuantities[product.id] = product.quantity;
   }

@@ -37,7 +37,7 @@ import { MessageModalComponent } from './message-modal/message-modal.component';
     FormatPhonePipe,
     MessageSenderComponent,
     MessageContainerComponent,
-    MessageModalComponent
+    MessageModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,9 +47,9 @@ import { MessageModalComponent } from './message-modal/message-modal.component';
     MatSnackBarModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [NgbActiveModal],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

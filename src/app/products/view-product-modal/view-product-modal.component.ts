@@ -52,10 +52,6 @@ export class ViewProductModalComponent implements OnInit {
       .subscribe();
   }
 
-  /**
-   * Adds product to basket
-   * @param productsInBasket
-   */
   addProductToBasket(productsInBasket: any): void {
     this.basketService
       .addProductToBasket(this.userId, productsInBasket)
@@ -72,9 +68,6 @@ export class ViewProductModalComponent implements OnInit {
       .subscribe();
   }
 
-  /**
-   * Close the modal
-   */
   close(): void {
     this.modalService.dismiss();
   }
